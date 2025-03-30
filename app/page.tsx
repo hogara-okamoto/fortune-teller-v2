@@ -29,22 +29,28 @@ export default function Home() {
   };
 
   return (
-    <main style={{ padding: '2rem' }}>
-      <h1>🔮 Blood & Birth Fortune Teller</h1>
+    <main style={{
+      padding: '1.5rem',
+      maxWidth: '600px',
+      margin: '0 auto',
+      fontFamily: 'sans-serif',
+    }}>
+      <h1 style={{ fontSize: '1.5rem', textAlign: 'center' }}>🔮 Blood & Birth Fortune Teller</h1>
 
-      <div style={{
-        display: 'flex',
-        gap: '2rem',
-        marginBottom: '2rem'
-      }}>
-        <label style={{
+      <div
+        style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.5rem'
-        }}>
+          gap: '1rem',
+          marginBottom: '2rem',
+          maxWidth: '100%',
+        }}
+      >
+        {/* Blood Type Selector */}
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <span style={{ fontWeight: 'bold' }}>Blood Type:</span>
-          <select 
-            value={input1} 
+          <select
+            value={input1}
             onChange={(e) => setInput1(e.target.value)}
             style={{
               padding: '0.5rem',
@@ -53,9 +59,9 @@ export default function Home() {
               border: '2px solid #e0e0e0',
               backgroundColor: 'white',
               cursor: 'pointer',
-              minWidth: '150px',
+              minWidth: '100%',
               outline: 'none',
-              transition: 'border-color 0.2s ease'
+              transition: 'border-color 0.2s ease',
             }}
           >
             {bloodTypes.map((type) => (
@@ -64,14 +70,11 @@ export default function Home() {
           </select>
         </label>
 
-        <label style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.5rem'
-        }}>
+        {/* Birth Month Selector */}
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <span style={{ fontWeight: 'bold' }}>Birth Month:</span>
-          <select 
-            value={input2} 
+          <select
+            value={input2}
             onChange={(e) => setInput2(e.target.value)}
             style={{
               padding: '0.5rem',
@@ -80,9 +83,9 @@ export default function Home() {
               border: '2px solid #e0e0e0',
               backgroundColor: 'white',
               cursor: 'pointer',
-              minWidth: '150px',
+              minWidth: '100%',
               outline: 'none',
-              transition: 'border-color 0.2s ease'
+              transition: 'border-color 0.2s ease',
             }}
           >
             {birthMonths.map((month) => (
@@ -92,7 +95,8 @@ export default function Home() {
         </label>
       </div>
 
-      <fieldset>
+      {/* Language Radio Buttons */}
+      <fieldset style={{ marginBottom: '1.5rem' }}>
         <legend>Select Language:</legend>
         {languages.map((lang) => (
           <label key={lang} style={{ marginRight: '1rem' }}>
@@ -106,14 +110,39 @@ export default function Home() {
           </label>
         ))}
       </fieldset>
-      <br />
-      <br />
 
-      <button onClick={fetchFortune} style={{fontWeight: 'bold'}}>Reveal Fortune</button>
+      {/* Submit Button */}
+      <button
+        onClick={fetchFortune}
+        style={{
+          fontWeight: 'bold',
+          padding: '0.75rem 1.5rem',
+          fontSize: '1rem',
+          borderRadius: '0.5rem',
+          border: 'none',
+          backgroundColor: '#6a4c93',
+          color: 'white',
+          cursor: 'pointer',
+          display: 'block',
+          margin: '0 auto 2rem',
+        }}
+      >
+        Reveal Fortune
+      </button>
 
-      <div style={{ width: '700px', lineHeight: '1.6' }}>
-      {loading && <p>Loading...</p>}
-      {result && <p style={{ marginTop: '1rem' }}>{result}</p>}
+      {/* Result Display */}
+      <div
+        style={{
+          maxWidth: '100%',
+          lineHeight: '1.6',
+          padding: '1rem',
+          backgroundColor: '#f9f9f9',
+          borderRadius: '0.5rem',
+          wordWrap: 'break-word',
+        }}
+      >
+        {loading && <p>Loading...</p>}
+        {result && <p style={{ marginTop: '1rem' }}>{result}</p>}
       </div>
     </main>
   );
