@@ -55,10 +55,7 @@ export default function Home() {
               cursor: 'pointer',
               minWidth: '150px',
               outline: 'none',
-              transition: 'border-color 0.2s ease',
-              ':hover': {
-                borderColor: '#a0a0a0'
-              }
+              transition: 'border-color 0.2s ease'
             }}
           >
             {bloodTypes.map((type) => (
@@ -85,10 +82,7 @@ export default function Home() {
               cursor: 'pointer',
               minWidth: '150px',
               outline: 'none',
-              transition: 'border-color 0.2s ease',
-              ':hover': {
-                borderColor: '#a0a0a0'
-              }
+              transition: 'border-color 0.2s ease'
             }}
           >
             {birthMonths.map((month) => (
