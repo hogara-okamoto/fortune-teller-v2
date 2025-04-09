@@ -1,0 +1,23 @@
+{
+    "bloodTypePersonalities": {
+        "A": "calm, detail-oriented, and responsible",
+        "B": "creative, energetic, and curious",
+        "O": "confident, outgoing, and strong-willed",
+        "AB": "rational, cool-headed, and unique"
+    },
+  
+    "birthMonthPersonalities": {
+        "1": "ambitious and disciplined",
+        "2": "compassionate and intuitive",
+        "3": "cheerful and artistic",
+        "4": "practical and loyal",
+        "5": "curious and adaptable",
+        "6": "caring and protective",
+        "7": "thoughtful and analytical",
+        "8": "bold and strong-minded",
+        "9": "kind and idealistic",
+        "10": "determined and charismatic",
+        "11": "intense and visionary",
+        "12": "joyful and imaginative"
+    }
+}

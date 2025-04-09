@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const bloodTypes = ['A', 'B', 'O', 'AB'];
 const birthMonths = Array.from({ length: 12 }, (_, i) => i + 1);
-const languages = ['English', 'Spanish', 'Japanese', 'Chinese'];
+const languages = ['English', 'Spanish', 'Hindi', 'Japanese', 'Chinese'];
 
 export default function Home() {
   const [input1, setInput1] = useState('A');

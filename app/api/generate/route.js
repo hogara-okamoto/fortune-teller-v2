@@ -1,34 +1,61 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+
+// 🔽 In case importing the personalities file from local directoty
+// import personalities from './data/personalities.json';
+
+// Lighthouse IPFS gateway base
+const GATEWAY_BASE_URL = 'https://gateway.lighthouse.storage/ipfs/';
+
+// Path to save JSON temporarily
+const LOCAL_PATH = '/tmp/personalities.json'; // `/tmp/` is safe for temp files in serverless environments
+const CID = process.env.LIGHTHOUSE_CID;
+
+// Download JSON file from Lighthouse using its CID
+async function downloadFromLighthouse(cid, outputPath) {
+  const gatewayUrl = `${GATEWAY_BASE_URL}${cid}`;
+  console.log('Fetching from:', gatewayUrl);
+
+  try {
+    const response = await axios.get(gatewayUrl, { responseType: 'stream' });
+
+    const writer = fs.createWriteStream(outputPath);
+    response.data.pipe(writer);
+
+    return new Promise((resolve, reject) => {
+      writer.on('finish', () => {
+        console.log(`Download successful! Saved to ${outputPath}`);
+        resolve(true);
+      });
+      writer.on('error', reject);
+    });
+  } catch (err) {
+    console.error('Download failed:', err.message);
+    return false;
+  }
+}
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const bloodTypePersonalities = {
-  A: 'calm, detail-oriented, and responsible',
-  B: 'creative, energetic, and curious',
-  O: 'confident, outgoing, and strong-willed',
-  AB: 'rational, cool-headed, and unique',
-};
-
-const birthMonthPersonalities = {
-  '1': 'ambitious and disciplined',
-  '2': 'compassionate and intuitive',
-  '3': 'cheerful and artistic',
-  '4': 'practical and loyal',
-  '5': 'curious and adaptable',
-  '6': 'caring and protective',
-  '7': 'thoughtful and analytical',
-  '8': 'bold and strong-minded',
-  '9': 'kind and idealistic',
-  '10': 'determined and charismatic',
-  '11': 'intense and visionary',
-  '12': 'joyful and imaginative',
-};
-
 export async function POST(req) {
   const { input_data_1, input_data_2, language } = await req.json();
+
+  // Download the personalities JSON file
+  const success = await downloadFromLighthouse(CID, LOCAL_PATH);
+  if (!success) {
+    return NextResponse.json({ error: 'Failed to download personality data.' }, { status: 500 });
+  }
+
+  // Read and parse the JSON file
+  const data = JSON.parse(fs.readFileSync(LOCAL_PATH, 'utf-8'));
+
+  const bloodTypePersonalities = data.bloodTypePersonalities;
+  const birthMonthPersonalities = data.birthMonthPersonalities;
 
   const bloodDesc = bloodTypePersonalities[input_data_1];
   const birthDesc = birthMonthPersonalities[input_data_2];
