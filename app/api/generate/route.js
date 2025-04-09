@@ -4,7 +4,7 @@ import axios from 'axios';
 import fs from 'fs';
 
 // 🔽 In case importing the personalities file from local directoty
-// import personalities from './data/personalities.json';
+// import personalities from '/tmp/personalities.json';
 
 // Lighthouse IPFS gateway base
 const GATEWAY_BASE_URL = 'https://gateway.lighthouse.storage/ipfs/';
