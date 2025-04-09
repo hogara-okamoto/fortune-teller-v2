@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import axios from 'axios';
 import fs from 'fs';
-import path from 'path';
 
 // 🔽 In case importing the personalities file from local directoty
 // import personalities from './data/personalities.json';
